@@ -8,9 +8,7 @@ const NumberRecognition = () => {
   const [result, setResult] = useState<number | null>(null)
 
   const loadModel = async () => {
-    console.log("Loading model")
     const result = await tf.loadLayersModel('./tf-models/model.json')
-    console.log("Loaded!")
     result.predict(tf.zeros([1, 28, 28, 1]))
     setModelo(result)
   }
@@ -21,7 +19,6 @@ const NumberRecognition = () => {
     newCanvas.freeDrawingBrush.width = 5;
     newCanvas.freeDrawingBrush.color = '#4b4b4b';
     newCanvas.on('path:created', (e: any) => {
-      console.log({ canvas })
       e.path.set();
       newCanvas?.renderAll();
       setCanvas(newCanvas)
@@ -30,7 +27,6 @@ const NumberRecognition = () => {
   }
 
   const predict = async () => {
-    console.log({ canvas })
     const image = tf.browser.fromPixels(canvas?.getElement() as HTMLCanvasElement)
     const resizedImage = tf.image.resizeBilinear(image, [28, 28]).sum(2).expandDims(0).expandDims(-1)
     const res = modelo?.predict(resizedImage) as tf.Tensor<tf.Rank>;
@@ -41,7 +37,6 @@ const NumberRecognition = () => {
   }
 
   function limpiar() {
-    console.log({ canvas })
     canvas?.clear()
     setResult(null)
   }
