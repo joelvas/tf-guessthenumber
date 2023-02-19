@@ -9,7 +9,7 @@ const NumberRecognition = () => {
 
   const loadModel = async () => {
     console.log("Loading model")
-    const result = await tf.loadLayersModel('./assets/tf-models/model.json')
+    const result = await tf.loadLayersModel('./tf-models/model.json')
     console.log("Loaded!")
     result.predict(tf.zeros([1, 28, 28, 1]))
     setModelo(result)
